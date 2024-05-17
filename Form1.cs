@@ -9,13 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 
-
 namespace ProjectWork_CasaDomotica
 {
     public partial class Form1 : Form
 
     {
-
         string porta;
 
         private Thread receiveThread;
@@ -40,8 +38,6 @@ namespace ProjectWork_CasaDomotica
             }
         }
 
-       
-
         public Form1()
         {
             InitializeComponent();
@@ -59,9 +55,6 @@ namespace ProjectWork_CasaDomotica
 
             Getweatherdata("Vicenza");
         }
-
-
-
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -96,7 +89,6 @@ namespace ProjectWork_CasaDomotica
                 {
                     Weather.Text = weatherParameters[0] + " " + weatherParameters[1] + " " + weatherParameters[2];
                 }
-
             }
             else
             {
@@ -104,18 +96,15 @@ namespace ProjectWork_CasaDomotica
             }
         }
         
-
         private async void btnPorta_Click(object sender, EventArgs e)
         {
             if (btnPorta.Text == "APRI")
             {
                 btnPorta.Text = "CHIUDI";
                 portaSeriale.Write("apri_porta");
-
                 btnPorta.Enabled = false;
                 await Task.Delay(2000);
                 btnPorta.Enabled = true;
-
             }
             else
             {
@@ -125,9 +114,7 @@ namespace ProjectWork_CasaDomotica
                 btnPorta.Enabled = false;
                 await Task.Delay(2000);
                 btnPorta.Enabled = true;
-
             }
-
         }
 
         private void btnAllarme_Click(object sender, EventArgs e)
@@ -136,28 +123,20 @@ namespace ProjectWork_CasaDomotica
             {
                 btnAllarme.Text = "DISATTIVA";
                 portaSeriale.Write("attiva_allarme");
-
             }
             else
             {
                 btnAllarme.Text = "ATTIVA";
-
                 portaSeriale.Write("disattiva_allarme");
-
             }
-
         }
 
-        
-
         private async void btnCampanello_Click(object sender, EventArgs e)
-
         {  
+                portaSeriale.Write("suona_campanello");
                 btnCampanello.Enabled = false;
                 await Task.Delay(2000);
-                btnCampanello.Enabled = true;
-
-                portaSeriale.Write("suona_campanello");
+                btnCampanello.Enabled = true;       
         }
 
         private void btnSalotto_Click_1(object sender, EventArgs e)
@@ -176,7 +155,6 @@ namespace ProjectWork_CasaDomotica
                 panel2.BackColor = Color.Transparent;
                 portaSeriale.Write("spegni_salotto");
             }
-
         }
 
         private void btnCamera1_Click_1(object sender, EventArgs e)
@@ -212,14 +190,11 @@ namespace ProjectWork_CasaDomotica
                 btnCamera2.BackColor = Color.IndianRed;
                 panel3.BackColor = Color.Transparent;
                 portaSeriale.Write("spegni_camera2");
-
             }
-
         }
 
         private void btnCucina_Click_1(object sender, EventArgs e)
         {
-
             if (btnCucina.Text == "OFF")
             {
                 btnCucina.Text = "ON";
@@ -248,8 +223,6 @@ namespace ProjectWork_CasaDomotica
                 btnBagno.BackColor = Color.LightGreen;
                 panel5.BackColor = Color.FromArgb(128, 255, 255, 170);
                 portaSeriale.Write("accendi_bagno1");
-
-
             }
             else
             {
@@ -258,7 +231,6 @@ namespace ProjectWork_CasaDomotica
                 panel5.BackColor = Color.Transparent;
                 portaSeriale.Write("spegni_bagno1");
             }
-
         }
 
         private void btnWc_Click(object sender, EventArgs e)
@@ -269,8 +241,6 @@ namespace ProjectWork_CasaDomotica
                 btnWc.BackColor = Color.LightGreen;
                 panel6.BackColor = Color.FromArgb(128, 255, 255, 170);
                 portaSeriale.Write("accendi_bagno2");
-
-
             }
             else
             {
@@ -279,7 +249,6 @@ namespace ProjectWork_CasaDomotica
                 panel6.BackColor = Color.Transparent;
                 portaSeriale.Write("spegni_bagno2");
             }
-
         }
 
         private void btnLavanderia_Click_1(object sender, EventArgs e)
@@ -291,9 +260,7 @@ namespace ProjectWork_CasaDomotica
                 panel7.BackColor = Color.FromArgb(128, 255, 255, 170);
                 panel8.BackColor = Color.FromArgb(128, 255, 255, 170);
                 panel10.BackColor = Color.FromArgb(128, 255, 255, 170);
-
                 portaSeriale.Write("accendi_lavanderia");
-
             }
             else
             {
@@ -302,9 +269,7 @@ namespace ProjectWork_CasaDomotica
                 panel7.BackColor = Color.Transparent;
                 panel8.BackColor = Color.Transparent;
                 panel10.BackColor = Color.Transparent;
-
                 portaSeriale.Write("spegni_lavanderia");
-
             }
         }
 
@@ -343,7 +308,6 @@ namespace ProjectWork_CasaDomotica
                             Thread.Sleep(3000);
                             btnCampanello.Enabled = true;
                         }
-
                     });
                 }
                 catch (TimeoutException) { }
@@ -356,14 +320,11 @@ namespace ProjectWork_CasaDomotica
             {
                 btnFoto.Text = "DISATTIVA";
                 portaSeriale.Write("attiva_foto");
-
             }
             else
             {
                 btnFoto.Text = "ATTIVA";
-
                 portaSeriale.Write("disattiva_foto");
-
             }
         }
     }
