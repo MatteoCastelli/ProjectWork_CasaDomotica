@@ -117,154 +117,6 @@ namespace ProjectWork_CasaDomotica
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            if(button2.Text == "OFF")
-            {
-                button2.Text = "ON";
-                button2.BackColor = Color.LightGreen;
-                panel1.BackColor = Color.FromArgb(128, 255, 255, 170);
-                panel11.BackColor = Color.FromArgb(128, 255, 255, 170);
-
-                //portaSeriale.Write("accendi_cucina");
-            }
-            else
-            {
-                button2.Text = "OFF";
-                button2.BackColor = Color.IndianRed;
-                panel1.BackColor = Color.Transparent;
-                panel11.BackColor = Color.Transparent;
-
-                //portaSeriale.Write("spegni_cucina");
-            }
-
-        }
-
-        private void button12_Click(object sender, EventArgs e)
-        {
-            if (button12.Text == "OFF")
-            {
-                button12.Text = "ON";
-                button12.BackColor = Color.LightGreen;
-                panel6.BackColor = Color.FromArgb(128, 255, 255, 170);
-                //portaSeriale.Write("accendi_bagno2");
-
-            }
-            else
-            {
-                button12.Text = "OFF";
-                button12.BackColor = Color.IndianRed;
-                panel6.BackColor = Color.Transparent;
-                //portaSeriale.Write("spegni_bagno2");
-
-            }
-
-        }
-
-        private void button11_Click(object sender, EventArgs e)
-        {
-            if (button11.Text == "OFF")
-            {
-                button11.Text = "ON";
-                button11.BackColor = Color.LightGreen;
-                panel5.BackColor = Color.FromArgb(128, 255, 255, 170);
-                //portaSeriale.Write("accendi_bagno1");
-
-
-            }
-            else
-            {
-                button11.Text = "OFF";
-                button11.BackColor = Color.IndianRed;
-                panel5.BackColor = Color.Transparent;
-                //portaSeriale.Write("spegni_bagno1");
-            }
-
-        }
-
-        private void button10_Click(object sender, EventArgs e)
-        {
-            if (button10.Text == "OFF")
-            {
-                button10.BackColor = Color.LightGreen;
-                button10.Text = "ON";
-                panel4.BackColor = Color.FromArgb(128, 255, 255, 170);
-                //portaSeriale.Write("accendi_camera2");
-            }
-            else
-            {
-                button10.Text = "OFF";
-                button10.BackColor = Color.IndianRed;
-                panel3.BackColor = Color.Transparent;
-                //portaSeriale.Write("spegni_camera2");
-
-            }
-
-        }
-
-        private void button9_Click(object sender, EventArgs e)
-        {
-            if (button9.Text == "OFF")
-            {
-                button9.Text = "ON";
-                button9.BackColor = Color.LightGreen;
-                panel3.BackColor = Color.FromArgb(128, 255, 255, 170);
-                //portaSeriale.Write("accendi_camera1");
-            }
-            else
-            {
-                button9.Text = "OFF";
-                button9.BackColor = Color.IndianRed;
-                panel3.BackColor = Color.Transparent;
-                //portaSeriale.Write("spegni_camera1");
-            }
-        }
-
-        private void button8_Click(object sender, EventArgs e)
-        {
-            if (button8.Text == "OFF")
-            {
-                button8.Text = "ON";
-                button8.BackColor = Color.LightGreen;
-                panel2.BackColor = Color.FromArgb(128, 255, 255, 170);
-                //portaSeriale.Write("accendi_salotto");
-            }
-            else
-            {
-                button8.Text = "OFF";
-                button8.BackColor = Color.IndianRed;
-                panel2.BackColor = Color.Transparent;
-                //portaSeriale.Write("spegni_salotto");
-            }
-
-        }
-
-        private void button13_Click(object sender, EventArgs e)
-        {
-            if (button13.Text == "OFF")
-            {
-                button13.Text = "ON";
-                button13.BackColor = Color.LightGreen;
-                panel7.BackColor = Color.FromArgb(128, 255, 255, 170);
-                panel8.BackColor = Color.FromArgb(128, 255, 255, 170);
-                panel10.BackColor = Color.FromArgb(128, 255, 255, 170);
-
-                //portaSeriale.Write("accendi_lavanderia");
-
-            }
-            else
-            {
-                button13.Text = "OFF";
-                button13.BackColor = Color.IndianRed;
-                panel7.BackColor = Color.Transparent;
-                panel8.BackColor = Color.Transparent;
-                panel10.BackColor = Color.Transparent;
-
-                //portaSeriale.Write("spegni_lavanderia");
-
-            }
-        }
-
         private async void btnPorta_Click(object sender, EventArgs e)
         {
             if (btnPorta.Text == "APRI")
@@ -308,21 +160,163 @@ namespace ProjectWork_CasaDomotica
 
         }
 
-        private void panel11_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+        
 
         private async void btnCampanello_Click(object sender, EventArgs e)
-        {
-            
-                //portaSeriale.Write("suona_campanello");
-
+        {  
                 btnCampanello.Enabled = false;
                 await Task.Delay(2000);
                 btnCampanello.Enabled = true;
 
-            
+                //portaSeriale.Write("suona_campanello");
+        }
+
+        private void btnSalotto_Click_1(object sender, EventArgs e)
+        {
+            if (btnSalotto.Text == "OFF")
+            {
+                btnSalotto.Text = "ON";
+                btnSalotto.BackColor = Color.LightGreen;
+                panel2.BackColor = Color.FromArgb(128, 255, 255, 170);
+                //portaSeriale.Write("accendi_salotto");
+            }
+            else
+            {
+                btnSalotto.Text = "OFF";
+                btnSalotto.BackColor = Color.IndianRed;
+                panel2.BackColor = Color.Transparent;
+                //portaSeriale.Write("spegni_salotto");
+            }
+
+        }
+
+        private void btnCamera1_Click_1(object sender, EventArgs e)
+        {
+                if (btnCamera1.Text == "OFF")
+                {
+                    btnCamera1.Text = "ON";
+                    btnCamera1.BackColor = Color.LightGreen;
+                    panel3.BackColor = Color.FromArgb(128, 255, 255, 170);
+                    //portaSeriale.Write("accendi_camera1");
+                }
+                else
+                {
+                    btnCamera1.Text = "OFF";
+                    btnCamera1.BackColor = Color.IndianRed;
+                    panel3.BackColor = Color.Transparent;
+                    //portaSeriale.Write("spegni_camera1");
+                }
+        }
+
+        private void btnCamera2_Click_1(object sender, EventArgs e)
+        {
+            if (btnCamera2.Text == "OFF")
+            {
+                btnCamera2.BackColor = Color.LightGreen;
+                btnCamera2.Text = "ON";
+                panel4.BackColor = Color.FromArgb(128, 255, 255, 170);
+                //portaSeriale.Write("accendi_camera2");
+            }
+            else
+            {
+                btnCamera2.Text = "OFF";
+                btnCamera2.BackColor = Color.IndianRed;
+                panel3.BackColor = Color.Transparent;
+                //portaSeriale.Write("spegni_camera2");
+
+            }
+
+        }
+
+        private void btnCucina_Click_1(object sender, EventArgs e)
+        {
+
+            if (btnCucina.Text == "OFF")
+            {
+                btnCucina.Text = "ON";
+                btnCucina.BackColor = Color.LightGreen;
+                panel1.BackColor = Color.FromArgb(128, 255, 255, 170);
+                panel11.BackColor = Color.FromArgb(128, 255, 255, 170);
+
+                //portaSeriale.Write("accendi_cucina");
+            }
+            else
+            {
+                btnCucina.Text = "OFF";
+                btnCucina.BackColor = Color.IndianRed;
+                panel1.BackColor = Color.Transparent;
+                panel11.BackColor = Color.Transparent;
+
+                //portaSeriale.Write("spegni_cucina");
+            }
+        }
+
+        private void btnBagno_Click(object sender, EventArgs e)
+        {
+            if (btnBagno.Text == "OFF")
+            {
+                btnBagno.Text = "ON";
+                btnBagno.BackColor = Color.LightGreen;
+                panel5.BackColor = Color.FromArgb(128, 255, 255, 170);
+                //portaSeriale.Write("accendi_bagno1");
+
+
+            }
+            else
+            {
+                btnBagno.Text = "OFF";
+                btnBagno.BackColor = Color.IndianRed;
+                panel5.BackColor = Color.Transparent;
+                //portaSeriale.Write("spegni_bagno1");
+            }
+
+        }
+
+        private void btnWc_Click(object sender, EventArgs e)
+        {
+            if (btnWc.Text == "OFF")
+            {
+                btnWc.Text = "ON";
+                btnWc.BackColor = Color.LightGreen;
+                panel6.BackColor = Color.FromArgb(128, 255, 255, 170);
+                //portaSeriale.Write("accendi_bagno2");
+
+
+            }
+            else
+            {
+                btnWc.Text = "OFF";
+                btnWc.BackColor = Color.IndianRed;
+                panel6.BackColor = Color.Transparent;
+                //portaSeriale.Write("spegni_bagno2");
+            }
+
+        }
+
+        private void btnLavanderia_Click_1(object sender, EventArgs e)
+        {
+            if (btnLavanderia.Text == "OFF")
+            {
+                btnLavanderia.Text = "ON";
+                btnLavanderia.BackColor = Color.LightGreen;
+                panel7.BackColor = Color.FromArgb(128, 255, 255, 170);
+                panel8.BackColor = Color.FromArgb(128, 255, 255, 170);
+                panel10.BackColor = Color.FromArgb(128, 255, 255, 170);
+
+                //portaSeriale.Write("accendi_lavanderia");
+
+            }
+            else
+            {
+                btnLavanderia.Text = "OFF";
+                btnLavanderia.BackColor = Color.IndianRed;
+                panel7.BackColor = Color.Transparent;
+                panel8.BackColor = Color.Transparent;
+                panel10.BackColor = Color.Transparent;
+
+                //portaSeriale.Write("spegni_lavanderia");
+
+            }
 
         }
 
