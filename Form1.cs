@@ -103,7 +103,7 @@ namespace ProjectWork_CasaDomotica
                 MessageBox.Show("Errore: " + response.StatusCode);
             }
         }
-
+        
 
         private async void btnPorta_Click(object sender, EventArgs e)
         {
@@ -157,7 +157,7 @@ namespace ProjectWork_CasaDomotica
                 await Task.Delay(2000);
                 btnCampanello.Enabled = true;
 
-                //portaSeriale.Write("suona_campanello");
+                portaSeriale.Write("suona_campanello");
         }
 
         private void btnSalotto_Click_1(object sender, EventArgs e)
@@ -167,14 +167,14 @@ namespace ProjectWork_CasaDomotica
                 btnSalotto.Text = "ON";
                 btnSalotto.BackColor = Color.LightGreen;
                 panel2.BackColor = Color.FromArgb(128, 255, 255, 170);
-                //portaSeriale.Write("accendi_salotto");
+                portaSeriale.Write("accendi_salotto");
             }
             else
             {
                 btnSalotto.Text = "OFF";
                 btnSalotto.BackColor = Color.IndianRed;
                 panel2.BackColor = Color.Transparent;
-                //portaSeriale.Write("spegni_salotto");
+                portaSeriale.Write("spegni_salotto");
             }
 
         }
@@ -186,14 +186,14 @@ namespace ProjectWork_CasaDomotica
                     btnCamera1.Text = "ON";
                     btnCamera1.BackColor = Color.LightGreen;
                     panel3.BackColor = Color.FromArgb(128, 255, 255, 170);
-                    //portaSeriale.Write("accendi_camera1");
+                    portaSeriale.Write("accendi_camera1");
                 }
                 else
                 {
                     btnCamera1.Text = "OFF";
                     btnCamera1.BackColor = Color.IndianRed;
                     panel3.BackColor = Color.Transparent;
-                    //portaSeriale.Write("spegni_camera1");
+                    portaSeriale.Write("spegni_camera1");
                 }
         }
 
@@ -204,14 +204,14 @@ namespace ProjectWork_CasaDomotica
                 btnCamera2.BackColor = Color.LightGreen;
                 btnCamera2.Text = "ON";
                 panel4.BackColor = Color.FromArgb(128, 255, 255, 170);
-                //portaSeriale.Write("accendi_camera2");
+                portaSeriale.Write("accendi_camera2");
             }
             else
             {
                 btnCamera2.Text = "OFF";
                 btnCamera2.BackColor = Color.IndianRed;
                 panel3.BackColor = Color.Transparent;
-                //portaSeriale.Write("spegni_camera2");
+                portaSeriale.Write("spegni_camera2");
 
             }
 
@@ -227,7 +227,7 @@ namespace ProjectWork_CasaDomotica
                 panel1.BackColor = Color.FromArgb(128, 255, 255, 170);
                 panel11.BackColor = Color.FromArgb(128, 255, 255, 170);
 
-                //portaSeriale.Write("accendi_cucina");
+                portaSeriale.Write("accendi_cucina");
             }
             else
             {
@@ -236,7 +236,7 @@ namespace ProjectWork_CasaDomotica
                 panel1.BackColor = Color.Transparent;
                 panel11.BackColor = Color.Transparent;
 
-                //portaSeriale.Write("spegni_cucina");
+                portaSeriale.Write("spegni_cucina");
             }
         }
 
@@ -247,7 +247,7 @@ namespace ProjectWork_CasaDomotica
                 btnBagno.Text = "ON";
                 btnBagno.BackColor = Color.LightGreen;
                 panel5.BackColor = Color.FromArgb(128, 255, 255, 170);
-                //portaSeriale.Write("accendi_bagno1");
+                portaSeriale.Write("accendi_bagno1");
 
 
             }
@@ -256,7 +256,7 @@ namespace ProjectWork_CasaDomotica
                 btnBagno.Text = "OFF";
                 btnBagno.BackColor = Color.IndianRed;
                 panel5.BackColor = Color.Transparent;
-                //portaSeriale.Write("spegni_bagno1");
+                portaSeriale.Write("spegni_bagno1");
             }
 
         }
@@ -268,7 +268,7 @@ namespace ProjectWork_CasaDomotica
                 btnWc.Text = "ON";
                 btnWc.BackColor = Color.LightGreen;
                 panel6.BackColor = Color.FromArgb(128, 255, 255, 170);
-                //portaSeriale.Write("accendi_bagno2");
+                portaSeriale.Write("accendi_bagno2");
 
 
             }
@@ -277,7 +277,7 @@ namespace ProjectWork_CasaDomotica
                 btnWc.Text = "OFF";
                 btnWc.BackColor = Color.IndianRed;
                 panel6.BackColor = Color.Transparent;
-                //portaSeriale.Write("spegni_bagno2");
+                portaSeriale.Write("spegni_bagno2");
             }
 
         }
@@ -292,7 +292,7 @@ namespace ProjectWork_CasaDomotica
                 panel8.BackColor = Color.FromArgb(128, 255, 255, 170);
                 panel10.BackColor = Color.FromArgb(128, 255, 255, 170);
 
-                //portaSeriale.Write("accendi_lavanderia");
+                portaSeriale.Write("accendi_lavanderia");
 
             }
             else
@@ -303,7 +303,7 @@ namespace ProjectWork_CasaDomotica
                 panel8.BackColor = Color.Transparent;
                 panel10.BackColor = Color.Transparent;
 
-                //portaSeriale.Write("spegni_lavanderia");
+                portaSeriale.Write("spegni_lavanderia");
 
             }
         }
