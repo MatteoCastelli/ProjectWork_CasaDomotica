@@ -1,33 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using RestSharp;
+using System;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO.Ports;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using RestSharp;
-using System.IO.Ports;
-using System.Reflection;
+using System.Threading;
 
 
 namespace ProjectWork_CasaDomotica
 {
     public partial class Form1 : Form
-       
+
     {
 
-        static string porta;
-        private BackgroundWorker dataReaderWorker;
-        string receivedData;
+        string porta;
+
+        private Thread receiveThread;
+
+        SerialPort portaSeriale;
+        private void btnSeriale_Click(object sender, EventArgs e)
+        {
+            porta = textBoxSeriale.Text;
+
+            portaSeriale = new SerialPort(porta, 9600);
+
+            portaSeriale.Open();
+
+            receiveThread = new Thread(ReceiveDataFromArduino);
+            receiveThread.Start();
+
+            if (porta != "")
+            {
+                this.Controls.Remove(btnSeriale);
+                this.Controls.Remove(label3);
+                this.Controls.Remove(textBoxSeriale);
+            }
+        }
+
+       
 
         public Form1()
         {
             InitializeComponent();
-           
+
             this.WindowState = FormWindowState.Maximized;  // Imposta la finestra di grandezza massima
             this.FormBorderStyle = FormBorderStyle.FixedSingle; // Imposta il form come non ridimensionabile
 
@@ -40,41 +58,10 @@ namespace ProjectWork_CasaDomotica
             ora.Text = DateTime.Now.ToLongTimeString();
 
             Getweatherdata("Vicenza");
-
-            string[] ports = SerialPort.GetPortNames();
-
-            foreach (string port in ports)
-            {
-                try
-                {
-                    using (SerialPort serialPort = new SerialPort(port, 9600))
-                    {
-                        serialPort.Open();
-                        serialPort.WriteLine("Hello Arduino!"); // Invia un messaggio all'Arduino
-                        System.Threading.Thread.Sleep(1000); // Aspetta un secondo per una risposta
-
-                        string response = serialPort.ReadExisting();
-                        if (!string.IsNullOrEmpty(response))
-                        {
-                            Console.WriteLine($"Arduino collegato alla porta: {port}");
-                            break; // Esci dal ciclo quando trovi la porta corretta
-                        }
-
-                        porta = port;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Errore durante il tentativo di connessione alla porta {port}: {ex.Message}");
-                }
-
-                dataReaderWorker = new BackgroundWorker();
-                //dataReaderWorker.DoWork += DataReaderWorker_DoWork;
-                dataReaderWorker.RunWorkerAsync();
-            }
         }
 
-        //SerialPort portaSeriale = new SerialPort(porta, 9600);
+
+
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -98,7 +85,7 @@ namespace ProjectWork_CasaDomotica
                 string[] weatherParameters = Regex.Split(response.Content, " ");
 
                 if (weatherParameters.Length == 1)
-                {   
+                {
                     Weather.Text = weatherParameters[0];
                 }
                 else if (weatherParameters.Length == 2)
@@ -117,13 +104,163 @@ namespace ProjectWork_CasaDomotica
             }
         }
 
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (button2.Text == "OFF")
+            {
+                button2.Text = "ON";
+                button2.BackColor = Color.LightGreen;
+                panel1.BackColor = Color.FromArgb(128, 255, 255, 170);
+                panel11.BackColor = Color.FromArgb(128, 255, 255, 170);
+
+                portaSeriale.Write("accendi_cucina");
+            }
+            else
+            {
+                button2.Text = "OFF";
+                button2.BackColor = Color.IndianRed;
+                panel1.BackColor = Color.Transparent;
+                panel11.BackColor = Color.Transparent;
+
+                portaSeriale.Write("spegni_cucina");
+            }
+
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            if (button12.Text == "OFF")
+            {
+                button12.Text = "ON";
+                button12.BackColor = Color.LightGreen;
+                panel6.BackColor = Color.FromArgb(128, 255, 255, 170);
+                portaSeriale.Write("accendi_bagno2");
+
+            }
+            else
+            {
+                button12.Text = "OFF";
+                button12.BackColor = Color.IndianRed;
+                panel6.BackColor = Color.Transparent;
+                portaSeriale.Write("spegni_bagno2");
+
+            }
+
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            if (button11.Text == "OFF")
+            {
+                button11.Text = "ON";
+                button11.BackColor = Color.LightGreen;
+                panel5.BackColor = Color.FromArgb(128, 255, 255, 170);
+                portaSeriale.Write("accendi_bagno1");
+
+
+            }
+            else
+            {
+                button11.Text = "OFF";
+                button11.BackColor = Color.IndianRed;
+                panel5.BackColor = Color.Transparent;
+                portaSeriale.Write("spegni_bagno1");
+            }
+
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            if (button10.Text == "OFF")
+            {
+                button10.BackColor = Color.LightGreen;
+                button10.Text = "ON";
+                panel4.BackColor = Color.FromArgb(128, 255, 255, 170);
+                portaSeriale.Write("accendi_camera2");
+            }
+            else
+            {
+                button10.Text = "OFF";
+                button10.BackColor = Color.IndianRed;
+                panel3.BackColor = Color.Transparent;
+                portaSeriale.Write("spegni_camera2");
+
+            }
+
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            if (button9.Text == "OFF")
+            {
+                button9.Text = "ON";
+                button9.BackColor = Color.LightGreen;
+                panel3.BackColor = Color.FromArgb(128, 255, 255, 170);
+                portaSeriale.Write("accendi_camera1");
+            }
+            else
+            {
+                button9.Text = "OFF";
+                button9.BackColor = Color.IndianRed;
+                panel3.BackColor = Color.Transparent;
+                portaSeriale.Write("spegni_camera1");
+            }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            if (button8.Text == "OFF")
+            {
+                button8.Text = "ON";
+                button8.BackColor = Color.LightGreen;
+                panel2.BackColor = Color.FromArgb(128, 255, 255, 170);
+                portaSeriale.Write("accendi_salotto");
+            }
+            else
+            {
+                button8.Text = "OFF";
+                button8.BackColor = Color.IndianRed;
+                panel2.BackColor = Color.Transparent;
+                portaSeriale.Write("spegni_salotto");
+            }
+
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            if (button13.Text == "OFF")
+            {
+                button13.Text = "ON";
+                button13.BackColor = Color.LightGreen;
+                panel7.BackColor = Color.FromArgb(128, 255, 255, 170);
+                panel8.BackColor = Color.FromArgb(128, 255, 255, 170);
+                panel10.BackColor = Color.FromArgb(128, 255, 255, 170);
+
+                portaSeriale.Write("accendi_lavanderia");
+
+            }
+            else
+            {
+                button13.Text = "OFF";
+                button13.BackColor = Color.IndianRed;
+                panel7.BackColor = Color.Transparent;
+                panel8.BackColor = Color.Transparent;
+                panel10.BackColor = Color.Transparent;
+
+                portaSeriale.Write("spegni_lavanderia");
+
+            }
+        }
+
+
         private async void btnPorta_Click(object sender, EventArgs e)
         {
             if (btnPorta.Text == "APRI")
             {
                 btnPorta.Text = "CHIUDI";
-                //portaSeriale.Write("apri_porta");
-                
+                portaSeriale.Write("apri_porta");
+
                 btnPorta.Enabled = false;
                 await Task.Delay(2000);
                 btnPorta.Enabled = true;
@@ -132,7 +269,7 @@ namespace ProjectWork_CasaDomotica
             else
             {
                 btnPorta.Text = "APRI";
-                //portaSeriale.Write("chiudi_porta");
+                portaSeriale.Write("chiudi_porta");
 
                 btnPorta.Enabled = false;
                 await Task.Delay(2000);
@@ -147,14 +284,14 @@ namespace ProjectWork_CasaDomotica
             if (btnAllarme.Text == "ATTIVA")
             {
                 btnAllarme.Text = "DISATTIVA";
-                //portaSeriale.Write("attiva_allarme");
+                portaSeriale.Write("attiva_allarme");
 
             }
             else
             {
                 btnAllarme.Text = "ATTIVA";
 
-                //portaSeriale.Write("disattiva_allarme");
+                portaSeriale.Write("disattiva_allarme");
 
             }
 
@@ -163,6 +300,7 @@ namespace ProjectWork_CasaDomotica
         
 
         private async void btnCampanello_Click(object sender, EventArgs e)
+
         {  
                 btnCampanello.Enabled = false;
                 await Task.Delay(2000);
@@ -318,27 +456,74 @@ namespace ProjectWork_CasaDomotica
 
             }
 
+        {
+
+            portaSeriale.Write("suona_campanello");
+
+            btnCampanello.Enabled = false;
+            await Task.Delay(2000);
+            btnCampanello.Enabled = true;
+
+
         }
 
-
-        /*private void DataReaderWorker_DoWork(object sender, DoWorkEventArgs e)
+        private void ReceiveDataFromArduino()
         {
-            try
+            while (true)
             {
-                    // Apri la porta seriale
-                    portaSeriale.Open();
+                try
+                {
+                    string dataRead = portaSeriale.ReadLine();
+                    Console.WriteLine(dataRead);
+                    this.Invoke((MethodInvoker)delegate {
+                        if (dataRead == "disattiva_allarme")
+                        {
+                            btnAllarme.Text = "ATTIVA";
+                        }
+                        else
+                        {
+                            string[] div = dataRead.Split();
 
-                    // Continua a leggere i dati in un ciclo infinito
-                    while (true)
-                    {
-                        receivedData = portaSeriale.ReadLine(); // Legge una riga di dati dalla porta seriale
-                    }
+                            if (div[0] == "H")
+                            {
+                                lblUmidita.Text = "UM: " + div[1] + "%";
+                            }
+                            if (div[0] == "T")
+                            {
+                                lblTemp.Text = "TEMP: " + div[1] + "°C";
+                            }
+                        }
+
+                        if (dataRead == "porta_aperta")
+                        {
+                            btnPorta.Text = "CHIUDI";
+                            portaSeriale.Write("apri_porta");
+                            btnCampanello.Enabled = false;
+                            Thread.Sleep(3000);
+                            btnCampanello.Enabled = true;
+                        }
+
+                    });
+                }
+                catch (TimeoutException) { }
             }
-            catch (Exception ex)
+        }
+
+        private void btnFoto_Click(object sender, EventArgs e)
+        {
+            if (btnFoto.Text == "ATTIVA")
             {
-                MessageBox.Show($"Errore durante la lettura dei dati dalla porta seriale: {ex.Message}", "Errore");
-            }
-        }*/
+                btnFoto.Text = "DISATTIVA";
+                portaSeriale.Write("attiva_foto");
 
+            }
+            else
+            {
+                btnFoto.Text = "ATTIVA";
+
+                portaSeriale.Write("disattiva_foto");
+
+            }
+        }
     }
 }
